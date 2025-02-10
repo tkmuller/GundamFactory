@@ -1,0 +1,360 @@
+{
+	"info": {
+		"_postman_id": "ad18fabf-89ae-4d71-b80a-fa71d68e80b4",
+		"name": "Gundam Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4795873"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/gundam-factory/auth/login?username=admin&password=admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"gundam-factory",
+						"auth",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "admin"
+						},
+						{
+							"key": "password",
+							"value": "admin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Gundam",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczOTIyNjU3OCwiZXhwIjoxNzM5MjYyNTc4fQ.30n86wVgLoWfRBhKKb_SHB6zxNvNfieUltlO3lME1Hk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"name\": \"RX-78-2 Gundam\",\r\n        \"model\": \"RX-78-2\",\r\n        \"color\": \"Black\",\r\n        \"height\": 18.0,\r\n        \"weight\": 60.0,\r\n        \"primaryWeapon\": \"Beam Rifle\",\r\n        \"secondaryWeapon\": \"Beam Saber\",\r\n        \"gundamType\": \"MULTIPURPOSE\",\r\n        \"manufacturingDate\": \"2079-09-18\",\r\n        \"gundamStatus\": \"IN_SERVICE\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/gundam-factory/gundams",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"gundam-factory",
+						"gundams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Gundam Mass-Produce",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczOTIyNjU3OCwiZXhwIjoxNzM5MjYyNTc4fQ.30n86wVgLoWfRBhKKb_SHB6zxNvNfieUltlO3lME1Hk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "   { \"gundam\":{\r\n        \"name\": \"RX-78-2 Gundam\",\r\n        \"model\": \"RX-78-2\",\r\n        \"color\": \"Black\",\r\n        \"height\": 18.0,\r\n        \"weight\": 60.0,\r\n        \"primaryWeapon\": \"Beam Rifle\",\r\n        \"secondaryWeapon\": \"Beam Saber\",\r\n        \"gundamType\": \"MULTIPURPOSE\",\r\n        \"manufacturingDate\": \"2079-09-18\",\r\n        \"gundamStatus\": \"IN_SERVICE\"\r\n    },\r\n    \"quantity\":3\r\n   }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/gundam-factory/gundams/mass-produce",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"gundam-factory",
+						"gundams",
+						"mass-produce"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Gundam",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczOTIyNjU3OCwiZXhwIjoxNzM5MjYyNTc4fQ.30n86wVgLoWfRBhKKb_SHB6zxNvNfieUltlO3lME1Hk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"name\": \"RX-78-2 Gundam\",\r\n        \"model\": \"RX-78-2\",\r\n        \"color\": 4234,\r\n        \"height\": \"18.0\",\r\n        \"weight\": 60.0,\r\n        \"primaryWeapon\": \"Beam Rifle\",\r\n        \"secondaryWeapon\": \"Beam Saber\",\r\n        \"gundamType\": \"MULTIPURPOSE\",\r\n        \"manufacturingDate\": \"2079-09-18\",\r\n        \"gundamStatus\": \"IN_SERVICE\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/gundam-factory/gundams/11",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"gundam-factory",
+						"gundams",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all gundam paged",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczOTIyNjU3OCwiZXhwIjoxNzM5MjYyNTc4fQ.30n86wVgLoWfRBhKKb_SHB6zxNvNfieUltlO3lME1Hk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/v1/gundam-factory/gundams/paged?page=1&size=20",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"gundam-factory",
+						"gundams",
+						"paged"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Gundam by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczOTIyNjU3OCwiZXhwIjoxNzM5MjYyNTc4fQ.30n86wVgLoWfRBhKKb_SHB6zxNvNfieUltlO3lME1Hk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/v1/gundam-factory/gundams/11",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"gundam-factory",
+						"gundams",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Gundam By name",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczOTIyNjU3OCwiZXhwIjoxNzM5MjYyNTc4fQ.30n86wVgLoWfRBhKKb_SHB6zxNvNfieUltlO3lME1Hk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/v1/gundam-factory/gundams/search?name=RX-78-2 Gundam",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"gundam-factory",
+						"gundams",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "RX-78-2 Gundam"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Gundam by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTczOTIyNjU3OCwiZXhwIjoxNzM5MjYyNTc4fQ.30n86wVgLoWfRBhKKb_SHB6zxNvNfieUltlO3lME1Hk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/v1/gundam-factory/gundams/11",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"gundam-factory",
+						"gundams",
+						"11"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
