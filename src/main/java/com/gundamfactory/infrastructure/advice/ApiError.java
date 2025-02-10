@@ -1,4 +1,4 @@
-package com.gundamfactory.infrastructure.controllers.advice;
+package com.gundamfactory.infrastructure.advice;
 
 public class ApiError {
 
@@ -12,7 +12,6 @@ public class ApiError {
         this.details = details;
     }
 
-    // Getters y Setters
     public String getMessage() {
         return message;
     }

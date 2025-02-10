@@ -1,4 +1,4 @@
-package com.gundamfactory.infrastructure.controllers.advice;
+package com.gundamfactory.infrastructure.advice;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
@@ -19,7 +19,6 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // 1. Validación de Constraint Violations (ya lo tenías)
     @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleValidationExceptions(Exception ex) {
@@ -40,35 +39,30 @@ public class GlobalExceptionHandler {
         return new ApiError("Error de validación", HttpStatus.BAD_REQUEST.value(), errors);
     }
 
-    // 2. Recurso no encontrado
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiError handleEntityNotFoundException(EntityNotFoundException ex) {
         return new ApiError("Recurso no encontrado", HttpStatus.NOT_FOUND.value(), ex.getMessage());
     }
 
-    // 3. Violación de integridad de datos (DB)
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ApiError handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
         return new ApiError("Error de integridad de datos", HttpStatus.CONFLICT.value(), ex.getMostSpecificCause().getMessage());
     }
 
-    // 4. Argumento ilegal
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleIllegalArgumentException(IllegalArgumentException ex) {
         return new ApiError("Argumento ilegal", HttpStatus.BAD_REQUEST.value(), ex.getMessage());
     }
 
-    // 5. Formato de mensaje no legible (JSON mal formado)
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         return new ApiError("Formato de solicitud incorrecto", HttpStatus.BAD_REQUEST.value(), ex.getMostSpecificCause().getMessage());
     }
 
-    // 6. Error de tipo en argumentos (por ejemplo, pasar un String cuando se espera un número)
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
@@ -76,7 +70,6 @@ public class GlobalExceptionHandler {
         return new ApiError("Tipo de parámetro incorrecto", HttpStatus.BAD_REQUEST.value(), error);
     }
 
-    // 7. Parámetro faltante en la solicitud
     @ExceptionHandler(MissingServletRequestParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
@@ -84,14 +77,12 @@ public class GlobalExceptionHandler {
         return new ApiError("Parámetro faltante", HttpStatus.BAD_REQUEST.value(), error);
     }
 
-    // 8. Control de concurrencia optimista (si lo usás)
     @ExceptionHandler(OptimisticLockingFailureException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ApiError handleOptimisticLockingFailureException(OptimisticLockingFailureException ex) {
         return new ApiError("Conflicto de actualización concurrente", HttpStatus.CONFLICT.value(), ex.getMessage());
     }
 
-    // 9. Manejo de excepciones genéricas (para capturar cualquier 500 no esperado)
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ApiError handleGenericException(Exception ex) {

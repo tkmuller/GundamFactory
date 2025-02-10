@@ -26,8 +26,8 @@ public class Gundam implements Serializable {
     private String name;
     private String model;
     private String color;
-    private double height; // in meters
-    private double weight; // in tons
+    private double height;
+    private double weight;
     private String primaryWeapon;
     private String secondaryWeapon;
 

@@ -1,13 +1,18 @@
 package com.gundamfactory.infrastructure.controllers;
 
 import com.gundamfactory.infrastructure.config.security.JwtUtil;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     private final JwtUtil jwtUtil;
@@ -17,12 +22,17 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password) {
-        // Aquí deberías validar las credenciales contra una base de datos
-        if ("admin".equals(username) && "password".equals(password)) {
-            return jwtUtil.generateToken(username);
+    public ResponseEntity login(@RequestParam String username, @RequestParam String password) {
+        if ("admin".equals(username) && "admin".equals(password)) {
+
+            String token = jwtUtil.generateToken(username);
+
+            Map<String, String> response = new HashMap<>();
+            response.put("jwt", token);
+
+            return ResponseEntity.ok(response);
         } else {
-            throw new RuntimeException("Credenciales inválidas");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 }

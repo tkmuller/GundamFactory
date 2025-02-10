@@ -8,6 +8,7 @@ import com.gundamfactory.application.useCases.MassProduceGundamUseCase;
 import com.gundamfactory.application.useCases.SearchGundamsByNameUseCase;
 import com.gundamfactory.application.useCases.UpdateGundamUseCase;
 import com.gundamfactory.domain.entities.Gundam;
+import com.gundamfactory.infrastructure.dto.CreateGundamRequest;
 import com.gundamfactory.infrastructure.dto.GundamMassProductionRequest;
 import com.gundamfactory.infrastructure.dto.PagedResponse;
 import jakarta.validation.constraints.Min;
@@ -30,7 +31,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/api/gundams")
+@RequestMapping("/gundams")
 public class GundamController {
 
     @Autowired
@@ -54,7 +55,6 @@ public class GundamController {
     @Autowired
     private SearchGundamsByNameUseCase searchGundamsByNameUseCase;
 
-    // Get all Gundams
     @GetMapping("/paged")
     public PagedResponse<Gundam> getAllGundamsPaged(@RequestParam(defaultValue = "1") @Min(1) int page,
                                                     @RequestParam(defaultValue = "5") @Min(1) int size) {
@@ -70,7 +70,6 @@ public class GundamController {
                 .build();
     }
 
-    // Get Gundam by ID
     @GetMapping("/{id}")
     public ResponseEntity<Gundam> getGundamById(@PathVariable Long id) {
 
@@ -84,29 +83,66 @@ public class GundamController {
         return searchGundamsByNameUseCase.apply(name);
     }
 
-    // Create a new Gundam
     @PostMapping
-    public Gundam createGundam(@RequestBody Gundam gundam) {
+    public Gundam createGundam(@RequestBody CreateGundamRequest request) {
 
-        return createGundamUseCase.apply(gundam);
+        Gundam newGundam = Gundam.builder()
+                .name(request.getName())
+                .model(request.getModel())
+                .color(request.getColor())
+                .height(request.getHeight())
+                .weight(request.getWeight())
+                .primaryWeapon(request.getPrimaryWeapon())
+                .secondaryWeapon(request.getSecondaryWeapon())
+                .gundamType(request.getGundamType())
+                .manufacturingDate(request.getManufacturingDate())
+                .gundamStatus(request.getGundamStatus())
+                .build();
+
+        return createGundamUseCase.apply(newGundam);
 
     }
 
     @PostMapping("/mass-produce")
     public String massProduceGundams(@RequestBody GundamMassProductionRequest request) {
-        massProduceGundamUseCase.accept(request.getGundam(), request.getQuantity());
+
+        Gundam newGundam = Gundam.builder()
+                .name(request.getGundam().getName())
+                .model(request.getGundam().getModel())
+                .color(request.getGundam().getColor())
+                .height(request.getGundam().getHeight())
+                .weight(request.getGundam().getWeight())
+                .primaryWeapon(request.getGundam().getPrimaryWeapon())
+                .secondaryWeapon(request.getGundam().getSecondaryWeapon())
+                .gundamType(request.getGundam().getGundamType())
+                .manufacturingDate(request.getGundam().getManufacturingDate())
+                .gundamStatus(request.getGundam().getGundamStatus())
+                .build();
+
+        massProduceGundamUseCase.accept(newGundam, request.getQuantity());
         return "Producción en masa iniciada para " + request.getQuantity() + " unidades del Gundam: " + request.getGundam().getName();
     }
 
-
-    // Update an existing Gundam
     @PutMapping("/{id}")
-    public ResponseEntity<Gundam> updateGundam(@PathVariable Long id, @RequestBody Gundam updatedGundam) {
+    public ResponseEntity<Gundam> updateGundam(@PathVariable Long id, @RequestBody CreateGundamRequest request) {
+
+        Gundam updatedGundam = Gundam.builder()
+                .name(request.getName())
+                .model(request.getModel())
+                .color(request.getColor())
+                .height(request.getHeight())
+                .weight(request.getWeight())
+                .primaryWeapon(request.getPrimaryWeapon())
+                .secondaryWeapon(request.getSecondaryWeapon())
+                .gundamType(request.getGundamType())
+                .manufacturingDate(request.getManufacturingDate())
+                .gundamStatus(request.getGundamStatus())
+                .build();
+
         return updateGundamUseCase.apply(id, updatedGundam)
                 .map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Delete a Gundam
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGundam(@PathVariable Long id) {
 
