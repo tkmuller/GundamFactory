@@ -8,11 +8,12 @@ La **Gundam Factory API** es una aplicación RESTful que permite la gestión de 
 
 - **Java 21** 
 - **Spring Boot 3.x** 
-- **M2 en memoria** para persistencia de datos 
+- **H2 en memoria** para persistencia de datos 
 - **Kafka** para mensajería asíncrona 
 - **Spring Security** para autenticación y autorización 
+- **Spring Cache** para guardar en cache consultas recurrentes
 - **JWT (JSON Web Tokens)** para manejo de sesiones seguras 
-- **Docker & Docker Compose** para contenerización y despliegue 
+- **Docker Compose** para contenerización y despliegue 
 - **Swagger/OpenAPI 3.0** para documentación interactiva 
 
 ---
@@ -26,7 +27,7 @@ La **Gundam Factory API** es una aplicación RESTful que permite la gestión de 
 
 ##  Despliegue con Docker
 
-La API está preparada para ejecutarse en contenedores Docker. Utilizamos `docker-compose` para facilitar la orquestación de la API junto con Kafka y M2.
+La API está preparada para ejecutarse en contenedores Docker. Utilizamos `docker-compose` para facilitar la orquestación de la API junto con Kafka y H2.
 
 ### 1. **Requisitos Previos**
 - Tener **Docker** y **Docker Compose** instalados.
@@ -55,7 +56,7 @@ La API está preparada para ejecutarse en contenedores Docker. Utilizamos `docke
    docker-compose up -d
    ```
 
-Esto levantará la API, M2 y Kafka.
+Esto levantará la API, H2 y Kafka.
 
 ---
 
