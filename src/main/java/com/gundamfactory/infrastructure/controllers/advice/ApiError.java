@@ -1,4 +1,4 @@
-package com.gundamfactory.infrastructure.advice;
+package com.gundamfactory.infrastructure.controllers.advice;
 
 public class ApiError {
 
