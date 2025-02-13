@@ -1,14 +1,28 @@
-# Usamos una imagen base con Java 21
-FROM openjdk:21-jdk-slim
+# Etapa de construcción con Maven y Java 21
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 
-# Directorio de trabajo dentro del contenedor
+# Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar el archivo JAR generado al contenedor
-COPY target/gundam-0.0.1-SNAPSHOT.jar gundam-api.jar
+# Copiar los archivos necesarios para la compilación
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
-# Exponer el puerto donde corre la API (por defecto 8080)
+# Copiar el código fuente y compilar el proyecto
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# Segunda etapa: imagen final con solo Java
+FROM eclipse-temurin:21-jdk
+
+# Establecer directorio de trabajo
+WORKDIR /app
+
+# Copiar el JAR compilado desde la imagen anterior
+COPY --from=build /app/target/*.jar app.jar
+
+# Exponer el puerto de la aplicación
 EXPOSE 8080
 
-# Comando para ejecutar la aplicación
-ENTRYPOINT ["java", "-jar", "gundam-api.jar"]
+# Ejecutar la aplicación
+ENTRYPOINT ["java", "-jar", "app.jar"]
